@@ -1,0 +1,51 @@
+% !TeX document-id = {182a71a9-0e53-4007-bbd0-360f73891856}
+% !TeX TXS-program:compile = txs:///latexmk/{}[-xelatex -synctex=1 -interaction=nonstopmode]
+
+%\documentclass[UTF8,openright,12pt,]{ctexbook}  %When you need to print the pdf ,choose this one. If it still can't satisfied you, you may turn to Cover and reconsitution/reconsitution.tex .I'm sure it will.
+\documentclass[openany,12pt]{ctexbook} %When you want to submit the pdf , then choose this one.
+
+\input{../Settings/Setting}
+\input{../Settings/Information}
+
+\begin{document}
+\frontmatter
+\input{../Settings/Titlepage}
+%\input{../Settings/Promise}
+
+%\listfigurename
+%\listtablename
+\pagestyle{plain}
+\pagenumbering{Roman}
+%\setcounter{page}{1}
+\begin{spacing}{1.7}
+	\input{../Body/Abstract}
+		\newpage
+\end{spacing}
+
+\tableofcontents
+
+\mainmatter  
+\input{Preface}
+\input{../Body/Chapter1}
+
+\input{../Body/Chapter2}
+
+\input{../Body/Chapter3}
+
+\input{../Body/Chapter4}
+
+\backmatter
+
+\addcontentsline{toc}{chapter}{参考文献 }
+
+\nocite{*}%添加此处
+\bibliography{../Body/Reference}
+\newpage
+\appendix
+\addcontentsline{toc}{chapter}{附录A }
+
+\input{../Body/Appendix}
+\input{../Body/Thanks}
+
+\end{document}
+
