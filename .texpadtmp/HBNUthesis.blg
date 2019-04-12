@@ -1,0 +1,54 @@
+This is BibTeX, Version 0.99d (TeX Live 2018)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: /Users/wuchenxu/Documents/LATEX/HBNUthesis/.texpadtmp/HBNUthesis.aux
+The style file: gbt7714-unsrt.bst
+Illegal, another \bibstyle command---line 19 of file /Users/wuchenxu/Documents/LATEX/HBNUthesis/.texpadtmp/HBNUthesis.aux
+ : \bibstyle
+ :          {unsrt}
+I'm skipping whatever remains of this command
+Database file #1: ../Reference.bib
+Warning--I didn't find a database entry for "刘海洋2013latex"
+Warning--I didn't find a database entry for "1"
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+You've used 5 entries,
+            3424 wiz_defined-function locations,
+            791 strings with 6201 characters,
+and the built_in function-call counts, 12726 in all, are:
+= -- 1114
+> -- 1241
+< -- 1229
++ -- 428
+- -- 38
+* -- 134
+:= -- 1556
+add.period$ -- 15
+call.type$ -- 5
+change.case$ -- 14
+chr.to.int$ -- 330
+cite$ -- 5
+duplicate$ -- 107
+empty$ -- 282
+format.name$ -- 66
+if$ -- 3568
+int.to.chr$ -- 1
+int.to.str$ -- 6
+missing$ -- 0
+newline$ -- 34
+num.names$ -- 15
+pop$ -- 564
+preamble$ -- 1
+purify$ -- 5
+quote$ -- 0
+skip$ -- 1360
+stack$ -- 0
+substring$ -- 380
+swap$ -- 12
+text.length$ -- 47
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 38
+warning$ -- 0
+while$ -- 56
+width$ -- 0
+write$ -- 75
+(There was 1 error message)

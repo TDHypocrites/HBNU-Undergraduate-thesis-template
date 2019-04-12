@@ -1,0 +1,37 @@
+\begin{thebibliography}{5}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{#1}
+\providecommand{\href}[2]{\url{#2}}
+\providecommand{\doi}[1]{DOI: \href{http://dx.doi.org/#1}{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax\relax\else
+  \urlstyle{same}\fi
+
+\bibitem[HBNU(2018)]{HBNU}
+HBNU.
+\newblock
+  计算机科学与技术学院本科毕业论文（设计）撰写规范201805\allowbreak[J].
+\newblock HBNU, 2018\penalty0 (1).
+
+\bibitem[zpxing\ et~al.(2017)zpxing, Frogge, liwenjun, lijian605, and
+  gprsnl]{lshort-zh-cn}
+ZPXING, FROGGE, LIWENJUN, et~al.
+\newblock lshort-zh-cn: number~5\allowbreak[M].
+\newblock [S.l.: s.n.], 2017.
+
+\bibitem[吴凌云\ 等(2018)吴凌云, 江疆, 王越, 刘海洋, 李延瑞,
+  陈之初, 李清, and 黄晨成]{CTEX}
+吴凌云, 江疆, 王越, 等.
+\newblock Ctex 宏集手册: 第3册\allowbreak[M].
+\newblock [出版地不详: 出版者不详], 2018.
+
+\bibitem[余钰炜(2016)]{XMU}
+余钰炜.
+\newblock 厦门大学博士学位模板: 第2册\allowbreak[Z].
+\newblock [出版地不详: 出版者不详], 2016.
+
+\bibitem[刘海洋(2013)]{013latex}
+刘海洋.
+\newblock Latex 入门\allowbreak[J].
+\newblock 电子工业出版社, 北京, 2013\penalty0 (4).
+
+\end{thebibliography}
