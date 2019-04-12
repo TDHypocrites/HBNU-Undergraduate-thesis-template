@@ -1,0 +1,221 @@
+% !TeX root = ../Main/HBNUthesis.tex
+\usepackage{ctex}
+%\ctexset{today=big,}
+
+\usepackage{amsmath,amsthm}
+\usepackage{amsfonts}
+\usepackage{verbatim}
+\usepackage{ifthen}
+\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage[para]{threeparttable}
+\usepackage{array,booktabs,longtable,tabularx}
+\usepackage[font={small,bf}]{caption}
+\usepackage{setspace}
+\usepackage{titletoc}
+\usepackage{array}
+\usepackage[raggedright]{titlesec}
+
+\usepackage[a4paper,
+%bindingoffset=1cm,
+left=2.5cm,
+right=2.5cm,
+top=2.5cm,
+bottom=2.5cm,
+footskip=1.5cm,
+twoside,
+]{geometry}
+
+\usepackage{graphicx}
+\graphicspath{{../Figures/}}%设定图片的存放路径
+\usepackage{tikz}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+		\node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
+\usepackage{pifont}
+
+%设置代码的插入
+\usepackage{listings}
+\def\lstbasicfont{\fontfamily{pcr}\selectfont\footnotesize}
+\lstset{%
+	numbers=left,
+	numberstyle=\tiny,
+	basicstyle=\small,
+	backgroundcolor=\color{white},      % choose the background color
+	basicstyle=\footnotesize\ttfamily,  % size of fonts used for the code
+	columns=fullflexible,
+	tabsize=4,
+	breaklines=true,               % automatic line breaking only at whitespace
+	captionpos=b,                  % sets the caption-position to bottom
+	commentstyle=\color{green},  % comment style
+	escapeinside={\%*}{*)},        % if you want to add LaTeX within your code
+	keywordstyle=\color{blue},     % keyword style
+	stringstyle=\color{purple}\ttfamily,  % string literal style
+	frame=single,
+	rulesepcolor=\color{red!20!green!20!blue!20},
+}
+\lstloadlanguages{C,C++,Java,Matlab,Mathematica}
+
+%算法的插入宏包
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\makeatletter
+\def\BState{\State\hskip-\ALG@thistlm}
+\makeatother
+
+
+%font
+\usepackage{fontspec} 
+\usepackage{xeCJK}%中文字体
+%Windows请保留以下三行代码。而Mac用户请注释以下三行代码，开启后面三行代码。Linux用户请自行配置字体。
+%\setCJKmainfont[ItalicFont={楷体}, BoldFont={黑体}]{宋体}%衬线字体 缺省中文字体为
+%\setCJKsansfont{黑体}
+%\setCJKmonofont{楷体}%中文等宽字体
+
+\setCJKmainfont[ItalicFont={Kai}, BoldFont={Hei}]{STSong}%衬线字体 缺省中文字体为
+\setCJKsansfont{Hei}
+\setCJKmonofont{Kai}%中文等宽字体
+
+\setmainfont{Times New Roman} %西文部分默认使用的字体
+\setsansfont{Times New Roman} %西文默认无衬线字体
+\setmonofont{Times New Roman}%西文默认的等宽字体
+
+\usepackage[super]{gbt7714}
+\usepackage[sort&compress]{natbib}
+\renewcommand{\citep}[1]{{\color{blue}\citeauthor{#1}(\citeyearpar{#1})}}
+
+
+\setCJKfamilyfont{zhsong}[AutoFakeBold = {2.17}]{SimSun}%%实现宋体加粗
+\renewcommand*{\songti}{\CJKfamily{zhsong}}
+
+
+\usepackage[bookmarks=true,bookmarksnumbered=ture,
+colorlinks,linkcolor=black,
+citecolor=blue,urlcolor=green]{hyperref}
+\usepackage{cleveref}
+%\let\oldeqref\eqref
+%\renewcommand{\eqref}{公式}\oldeqref}
+
+\crefname{figure}{图}{}
+\crefname{table}{表}{}
+\crefname{equation}{公式}{}
+%equation, chapter, section, etc.
+%\creflabelformat{htypei}{hformati}
+\newtheorem{theory}{定理}[section]
+\theoremstyle{definition}\newtheorem{law}{定律}[section]
+\def\lq{`}\def\rq{'}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 重定义字号命令
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\xiaochu}{\fontsize{30pt}{30pt}\selectfont}    % 小初, 单倍行距
+\newcommand{\yihao}{\fontsize{26pt}{26pt}\selectfont}    % 一号, 单倍行距
+\newcommand{\erhao}{\fontsize{22pt}{22pt}\selectfont}    % 二号, 单倍行距
+\newcommand{\xiaoer}{\fontsize{18pt}{18pt}\selectfont}    % 小二, 单倍行距
+\newcommand{\sanhao}{\fontsize{16pt}{16pt}\selectfont}    % 三号, 单倍行距
+\newcommand{\xiaosan}{\fontsize{15pt}{15pt}\selectfont}    % 小三, 单倍行距
+\newcommand{\sihao}{\fontsize{14pt}{14pt}\selectfont}    % 四号, 单倍行距
+\newcommand{\banxiaosi}{\fontsize{13pt}{13pt}\selectfont}    % 半小四, 单倍行距
+\newcommand{\xiaosi}{\fontsize{12pt}{12pt}\selectfont}    % 小四, 单倍行距
+\newcommand{\dawuhao}{\fontsize{11pt}{11pt}\selectfont}    % 大五号, 单倍行距
+\newcommand{\wuhao}{\fontsize{10.5pt}{10.5pt}\selectfont}    % 五号, 单倍行距
+\newcommand{\xiaowu}{\fontsize{9pt}{9pt}\selectfont}    % 小五号, 单倍行距
+
+
+
+
+ 
+ 
+\makeatletter
+\setlength{\parskip}{6pt}
+
+\newcommand\hbnuabstract{\@startsection{subsubsection}{3}%
+ {0pt}{12pt}{6pt}%
+ {\centering\erhao\bfseries\heiti }}
+ 
+ \newcommand\Ehbnuabstract{\@startsection{subsubsection}{3}%
+ {0pt}{12pt}{6pt}%
+ {\centering\erhao\bfseries\fontspec{Arial} }}
+ 
+ \newcommand\hbnusubabstract{\@startsection{subsubsection}{3}%
+ {0pt}{0pt}{24pt} 
+ {\songti \bfseries	\sihao\rightline }}
+  \newcommand\Ehbnusubabstract{\@startsection{subsubsection}{3}%
+ {0pt}{0pt}{24pt} 
+ { \fontspec{Arial} \sihao \bfseries\rightline }}
+ 
+  \newcommand\hbnuthanks{\@startsection{chapter}{3}%
+ {0pt}{6pt}{12pt} 
+ { \bf\xiaosan\center }}
+% 设置标题段前段后距离
+
+\titlespacing*{\chapter} {0pt}{6pt}{6pt}
+\titlespacing*{\section} {0pt}{6pt}{6pt}
+\titlespacing*{\subsection} {0pt}{6pt}{6pt}
+
+
+\titleformat{\chapter}{\xiaosan\bf}{\thechapter\ }{1em}{}
+
+\renewcommand*\l@chapter[2]{\@dottedtocline{1}{5em}{5em}%
+	{\sffamily \songti \bf
+		\vspace{0.4em}\hskip 2em  \xiaosan #1}{#2}}
+\renewcommand*\l@section[2]{\@dottedtocline{1}{1.5em}{2.5em}%
+	{\sffamily \songti 
+		\vspace{0.4em}\hskip 2em  \xiaosan #1}{#2}}
+\renewcommand*\l@subsection[2]{\@dottedtocline{2}{3.8em}{3em}%
+	{\rmfamily  \songti  
+		\vspace{0.4em}\hskip 4.5em \sihao #1}{#2}}
+
+% for section
+\renewcommand\section{\@startsection{section}{1}{\z@}%
+	{6pt\@plus 0pt \@minus 6pt}%
+	{6pt\@plus 0pt \@minus 6pt}%
+	{\sffamily
+		\sihao \bfseries\heiti}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+	{6pt\@plus 0pt \@minus 6pt}%
+	{6pt\@plus 0pt \@minus 6pt}%
+	{\sffamily
+		\xiaosi \bfseries\heiti}}
+%
+\bibliographystyle{unsrt}
+%
+%\renewcommand\thechapter{\arabic{chapter}} 
+%\titlecontents{chapter}[0pt]{\songti\vspace{0.4em} \bfseries\sanhao }{}{}{\titlerule*[0.5pc]{.}\contentspage}
+
+
+%%用于产生没有编号但在目录中列出的章。
+%% \phantomsection is the anchor hyperref needed to make a bookmark,
+%% without it, hyerref would throw out warnings.
+%% typeset Chinese Chapter, then list it in toc and eoc
+
+%% Chinese Chapter only in toc
+
+
+
+
+%%===========================目录==============================%%
+
+%%设置目录格式。
+\renewcommand\tableofcontents{%
+	\thispagestyle{plain}
+	\parskip 0pt
+	%    \Cchapter{\texorpdfstring{\contentsname}{目录}}%
+	\begin{center}
+	\setlength{\parskip}{12pt}
+		\heiti{\xiaosan{\textbf{目\qquad 录}}}
+		\setlength{\parskip}{12pt}
+	\end{center}
+	\@starttoc{toc}% 
+}
+
+%%============================关键词===========================%%
+
+%%中文关键词。
+\newcommand\keywords[1]{%
+	\vspace{2ex}\noindent{\sffamily \bfseries 关键词：} #1}
+
+
+\makeatother
