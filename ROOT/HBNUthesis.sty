@@ -17,6 +17,7 @@
 \RequirePackage{titletoc}
 \RequirePackage{array}
 \RequirePackage[raggedright]{titlesec}
+\RequirePackage{cite}
 
 \RequirePackage[a4paper,
 %bindingoffset=1cm,
@@ -29,7 +30,7 @@ twoside,
 ]{geometry}
 
 \RequirePackage{graphicx}
-\graphicspath{{Figures/}}%设定图片的存放路径
+\graphicspath{{../Figures/}}%设定图片的存放路径
 \RequirePackage{tikz}
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
 		\node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
@@ -186,7 +187,7 @@ citecolor=blue,urlcolor=green]{hyperref}
 	{\sffamily
 		\xiaosi \bfseries\heiti}}
 %
-\bibliographystyle{unsrt}
+
 %
 %\renewcommand\thechapter{\arabic{chapter}} 
 %\titlecontents{chapter}[0pt]{\songti\vspace{0.4em} \bfseries\sanhao }{}{}{\titlerule*[0.5pc]{.}\contentspage}
