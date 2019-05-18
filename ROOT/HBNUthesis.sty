@@ -1,6 +1,6 @@
 % -*- coding: utf-8 -*-
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{HBNUthesis}[2015/03/16]
+\ProvidesPackage{HBNUthesis}[2019/03/16]
 \RequirePackage{ctex}
 %\ctexset{today=big,}
 \RequirePackage{amsmath,amsthm}
@@ -16,8 +16,13 @@
 \RequirePackage{setspace}
 \RequirePackage{titletoc}
 \RequirePackage{array}
+\RequirePackage{algorithmicx}
 \RequirePackage[raggedright]{titlesec}
-
+\RequirePackage{palatino}
+\RequirePackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+\RequirePackage{graphicx}
+\RequirePackage{fontspec} 
 \RequirePackage[a4paper,
 %bindingoffset=1cm,
 left=2.5cm,
@@ -28,15 +33,44 @@ footskip=1.5cm,
 twoside,
 ]{geometry}
 
-\RequirePackage{graphicx}
-\graphicspath{{Figures/}}%设定图片的存放路径
+
+
 \RequirePackage{tikz}
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
 		\node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
 \RequirePackage{pifont}
+% 流程图定义基本形状
+\thispagestyle{empty}
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width = 2cm, minimum height=1cm,text centered, draw = black]
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=2cm, minimum height=1cm, text centered, draw=black]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black]
+\tikzstyle{decision} = [diamond, aspect = 3, text centered, draw=black]
+% 箭头形式
+\tikzstyle{arrow} = [->,>=stealth]
+
 
 %设置代码的插入
+
 \RequirePackage{listings}
+\newenvironment{breakablealgorithm}
+  {% \begin{breakablealgorithm}
+   \begin{center}
+     \refstepcounter{algorithm}% New algorithm
+     \hrule height.8pt depth0pt \kern2pt% \@fs@pre for \@fs@ruled
+     \renewcommand{\caption}[2][\relax]{% Make a new \caption
+       {\raggedright\textbf{\ALG@name~\thealgorithm} ##2\par}%
+       \ifx\relax##1\relax % #1 is \relax
+         \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##2}%
+       \else % #1 is not \relax
+         \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##1}%
+       \fi
+       \kern2pt\hrule\kern2pt
+     }
+  }{% \end{breakablealgorithm}
+     \kern2pt\hrule\relax% \@fs@post for \@fs@ruled
+   \end{center}
+  }
+
 \def\lstbasicfont{\fontfamily{pcr}\selectfont\footnotesize}
 \lstset{%
 	numbers=left,
@@ -67,7 +101,7 @@ twoside,
 
 
 %font
-\RequirePackage{fontspec} 
+
 \RequirePackage{xeCJK}%中文字体
 %Windows请保留以下三行代码。而Mac用户请注释以下三行代码，开启后面三行代码。Linux用户请自行配置字体。
 %\setCJKmainfont[ItalicFont={楷体}, BoldFont={黑体}]{宋体}%衬线字体 缺省中文字体为
@@ -76,6 +110,7 @@ twoside,
 
 \setCJKmainfont[ItalicFont={Kai}, BoldFont={Hei}]{STSong}%衬线字体 缺省中文字体为
 \setCJKsansfont{Hei}
+\CJKfontspec{KaiTi_GB2312}
 \setCJKmonofont{Kai}%中文等宽字体
 
 \setmainfont{Times New Roman} %西文部分默认使用的字体
@@ -89,11 +124,11 @@ twoside,
 
 \setCJKfamilyfont{zhsong}[AutoFakeBold = {2.17}]{SimSun}%%实现宋体加粗
 \renewcommand*{\songti}{\CJKfamily{zhsong}}
-
+\renewcommand{\ttdefault}{KaiTi_GB2312}
 
 \RequirePackage[bookmarks=true,bookmarksnumbered=ture,
 colorlinks,linkcolor=black,
-citecolor=blue,urlcolor=green]{hyperref}
+citecolor=blue,urlcolor=blue]{hyperref}
 \RequirePackage{cleveref}
 %\let\oldeqref\eqref
 %\renewcommand{\eqref}{公式}\oldeqref}
@@ -125,54 +160,64 @@ citecolor=blue,urlcolor=green]{hyperref}
 \newcommand{\xiaowu}{\fontsize{9pt}{9pt}\selectfont}    % 小五号, 单倍行距
 
 
-
+%no new page for chapter
+\usepackage{xpatch}
+\makeatletter
+\xpatchcmd{\chapter}
+{\if@openright\cleardoublepage\else\clearpage\fi}{\par\relax}
+{}{}
+\makeatother
 
  
  
 \makeatletter
-\setlength{\parskip}{6pt}
+\setlength{\baselineskip}{20pt}
+\setlength{\parskip}{0pt}
 
 \newcommand\hbnuabstract{\@startsection{subsubsection}{3}%
- {0pt}{12pt}{6pt}%
+ {0pt}{24pt}{6pt}%
  {\centering\erhao\bfseries\heiti }}
  
  \newcommand\Ehbnuabstract{\@startsection{subsubsection}{3}%
- {0pt}{12pt}{6pt}%
+ {0pt}{24pt}{6pt}%
  {\centering\erhao\bfseries\fontspec{Arial} }}
  
  \newcommand\hbnusubabstract{\@startsection{subsubsection}{3}%
- {0pt}{0pt}{24pt} 
+ {0pt}{0pt}{0pt} 
  {\songti \bfseries	\sihao\rightline }}
   \newcommand\Ehbnusubabstract{\@startsection{subsubsection}{3}%
- {0pt}{0pt}{24pt} 
+ {0pt}{0pt}{0pt} 
  { \fontspec{Arial} \sihao \bfseries\rightline }}
 \newcommand\hbnupreface{\@startsection{chapter}{3}%
  {0pt}{6pt}{6pt} 
  { \heiti \xiaosan \bfseries}}
  \newcommand\hbnuthanks{\@startsection{chapter}{3}%
  {0pt}{6pt}{12pt} 
- { \bf\xiaosan\center }}
-  \newcommand\hbnupromise{\@startsection{chapter}{3}%
+ { \bf\xiaosan\center}}
+ \newcommand\hbnupromise{\@startsection{chapter}{3}%
  {0pt}{6pt}{12pt} 
  { \bf\xiaosan\center }}
+ % \newenvironment{hbnuthank}{\fontfamily{KaiTi_GB2312}\selectfont}
+ 
 % 设置标题段前段后距离
 
 \titlespacing*{\chapter} {0pt}{6pt}{6pt}
 \titlespacing*{\section} {0pt}{6pt}{6pt}
 \titlespacing*{\subsection} {0pt}{6pt}{6pt}
+\titlespacing*{\hbnuthanks} {0pt}{6pt}{12pt}
 
+\titleformat{\chapter}{\sihao\bf}{\thechapter}{1em}{}
 
-\titleformat{\chapter}{\xiaosan\bf}{\thechapter}{1em}{}
-
-\renewcommand*\l@chapter[2]{\@dottedtocline{1}{1em}{2em}%
+\renewcommand*\l@chapter[2]{\@dottedtocline{1}{1em}{1.5em}%
 	{\sffamily \songti \bf
-		\vspace{0.4em}\hskip 0em  \xiaosan #1}{#2}}
-\renewcommand*\l@section[2]{\@dottedtocline{1}{1.5em}{3.5em}%
+		\vspace{1em}\hskip 0em  \sihao #1}{#2}}
+
+\renewcommand*\l@section[2]{\@dottedtocline{1}{1.5em}{2.5em}%
 	{\sffamily \songti 
-		\vspace{0.4em}\hskip 2em  \xiaosan #1}{#2}}
-\renewcommand*\l@subsection[2]{\@dottedtocline{2}{3.8em}{3em}%
+		\vspace{1em}\hskip 2em  \xiaosi #1}{#2}}
+\renewcommand*\l@subsection[2]{\@dottedtocline{2}{2.5em}{3em}%
 	{\rmfamily  \songti  
-		\vspace{0.4em}\hskip 4.5em \sihao #1}{#2}}
+		\vspace{1em}\hskip 4.5em \wuhao #1}{#2}}
 
 % for section
 \renewcommand\section{\@startsection{section}{1}{\z@}%
@@ -186,7 +231,7 @@ citecolor=blue,urlcolor=green]{hyperref}
 	{\sffamily
 		\xiaosi \bfseries\heiti}}
 %
-\bibliographystyle{unsrt}
+\bibliographystyle{unsrt}%参考文献模式
 %
 %\renewcommand\thechapter{\arabic{chapter}} 
 %\titlecontents{chapter}[0pt]{\songti\vspace{0.4em} \bfseries\sanhao }{}{}{\titlerule*[0.5pc]{.}\contentspage}
@@ -199,22 +244,26 @@ citecolor=blue,urlcolor=green]{hyperref}
 
 %% Chinese Chapter only in toc
 
+\graphicspath{{../Figures/}}%设定图片的存放路径
 
+\renewcommand{\captionfont}{\wuhao \songti \sffamily} 
+\renewcommand{\captionlabelfont}{\wuhao \songti \sffamily} 
+\renewcommand {\thefigure} {\thechapter{}-\arabic{figure}}
 
 
 %%===========================目录==============================%%
 
 %%设置目录格式。
 \renewcommand\tableofcontents{%
+	\begin{scriptsize}
 	\thispagestyle{plain}
-	\parskip 0pt
-	%    \Cchapter{\texorpdfstring{\contentsname}{目录}}%
 	\begin{center}
 	\setlength{\parskip}{12pt}
 		\heiti{\xiaosan{\textbf{目\qquad 录}}}
 		\setlength{\parskip}{12pt}
 	\end{center}
 	\@starttoc{toc}% 
+    \end{scriptsize}
 }
 
 %%============================关键词===========================%%

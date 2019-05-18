@@ -52,7 +52,7 @@ xetex HBNUthesis.tex
 xetex HBNUthesis.tex
 方能得到正确参考文献的引用
 
-正文中 每章新开一页的问题还在处理中。
+
 >>>>>>> 57bb4417fce216fdd9b7b586ea806d2499c2fb74:Readme.md
 
 

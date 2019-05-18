@@ -1,5 +1,54 @@
-[0] Config.pm:302> INFO - This is Biber 2.11
-[0] Config.pm:305> INFO - Logfile is '/Users/wuchenxu/Documents/Github/HBNUthesis/ROOT/.texpadtmp/HBNUthesis.blg'
-[54] biber-darwin:313> INFO - === Fri Apr 12, 2019, 22:11:02
-[207] Utils.pm:209> ERROR - Cannot find control file '/Users/wuchenxu/Documents/Github/HBNUthesis/ROOT/.texpadtmp/HBNUthesis.bcf'! - Did latex run successfully on your .tex file before you ran biber?
-[207] Biber.pm:114> INFO - ERRORS: 1
+This is BibTeX, Version 0.99d (TeX Live 2018)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: /Users/wuchenxu/Documents/Github/HBNUthesis/ROOT/.texpadtmp/HBNUthesis.aux
+The style file: gbt7714-unsrt.bst
+Illegal, another \bibstyle command---line 19 of file /Users/wuchenxu/Documents/Github/HBNUthesis/ROOT/.texpadtmp/HBNUthesis.aux
+ : \bibstyle
+ :          {unsrt}
+I'm skipping whatever remains of this command
+Database file #1: ../../Body/Reference.bib
+Warning--entry type for "1" isn't style-file defined
+--line 116 of file ../../Body/Reference.bib
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+You've used 11 entries,
+            3424 wiz_defined-function locations,
+            825 strings with 6861 characters,
+and the built_in function-call counts, 19259 in all, are:
+= -- 1503
+> -- 1800
+< -- 1827
++ -- 581
+- -- 34
+* -- 242
+:= -- 2311
+add.period$ -- 34
+call.type$ -- 11
+change.case$ -- 22
+chr.to.int$ -- 444
+cite$ -- 11
+duplicate$ -- 219
+empty$ -- 595
+format.name$ -- 66
+if$ -- 5371
+int.to.chr$ -- 1
+int.to.str$ -- 12
+missing$ -- 0
+newline$ -- 65
+num.names$ -- 33
+pop$ -- 898
+preamble$ -- 1
+purify$ -- 11
+quote$ -- 0
+skip$ -- 2030
+stack$ -- 0
+substring$ -- 692
+swap$ -- 11
+text.length$ -- 56
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 118
+warning$ -- 0
+while$ -- 87
+width$ -- 0
+write$ -- 173
+(There was 1 error message)

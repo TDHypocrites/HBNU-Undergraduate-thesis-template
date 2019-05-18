@@ -1,0 +1,71 @@
+\begin{thebibliography}{11}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{#1}
+\providecommand{\href}[2]{\url{#2}}
+\providecommand{\doi}[1]{DOI: \href{http://dx.doi.org/#1}{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax\relax\else
+  \urlstyle{same}\fi
+
+\bibitem[国家互联网应急中心(2018)]{1}
+国家互联网应急中心.
+\newblock
+  计算机恶意程序传播渠道安全检测报告-2018年9月\allowbreak[J/OL].
+\newblock 网络安全, 2018.
+\newblock
+  \url{http://www.cert.org.cn/publish/main/upload/File/2018%2009%20malware%20.pdf}.
+
+\bibitem[王娟(2005)]{7}
+王娟.
+\newblock Hacker's door后门程序查杀办法\allowbreak[J].
+\newblock 计算机安全, 2005\penalty0 (06): 54--55.
+
+\bibitem[梁炯棠(2010)]{2}
+梁炯棠.
+\newblock 计算机网络安全的影响因素与防范措施\allowbreak[J].
+\newblock 电子技术与软件工程, 2010, 6\penalty0 (21): 5716--5719.
+
+\bibitem[廖永红黄战(2001)]{3}
+廖永红黄战.
+\newblock 基于ip包内容的windows包过滤技术的实现\allowbreak[J].
+\newblock 电脑与信息技术, 2001, 03: 4--7.
+
+\bibitem[陈中男(2019)]{5}
+陈中男.
+\newblock
+  浅谈计算机网络安全中防火墙技术的探索与运用\allowbreak[J].
+\newblock 网络安全技术与应用, 2019\penalty0 (03): 22--23.
+
+\bibitem[刘陆民(2018)]{4}
+刘陆民.
+\newblock
+  浅谈linux防火墙netfilter/iptables在网络安全中的应\allowbreak[J].
+\newblock 数字技术与应用, 2018, 36\penalty0 (02): 199--200.
+
+\bibitem[汪彩梅刘文杰(2011)]{8}
+汪彩梅刘文杰.
+\newblock 基于c/s结构的无端口后门的研究与实现[\allowbreak[J].
+\newblock 网络安全技术与应用, 2011\penalty0 (02): 19--21.
+
+\bibitem[乔巧(2019)]{6}
+乔巧.
+\newblock 计算机网络安全中防火墙技术的应用探究\allowbreak[J].
+\newblock 企业科技与发展, 2019\penalty0 (02): 178--179.
+
+\bibitem[小金(2004)]{9}
+小金.
+\newblock
+  Chip信息安全技术------惊心动魄的后门程序阻击战\allowbreak[J].
+\newblock 新电脑, 2004\penalty0 (02): 104--105.
+
+\bibitem[小金(2006)]{11}
+小金.
+\newblock 手工处理恶性计算机后门
+  系统安全保卫战\allowbreak[J].
+\newblock 新电脑, 2006\penalty0 (02): 116--119.
+
+\bibitem[朱文杰(2006)]{10}
+朱文杰.
+\newblock 隐藏型后门程序设计与实现\allowbreak[D].
+\newblock 北京邮电大学: 北京邮电大学, 2006.
+
+\end{thebibliography}

